@@ -1,5 +1,4 @@
 <template>
-
     <BaelGrid :allitems="allBlogPosts"></BaelGrid>
 </template>
 
