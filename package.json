@@ -14,25 +14,25 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
     "@nuxtjs/markdownit": "github:syffs/nuxtv2-markdownit",
     "@nuxtjs/pwa": "^2.0.8",
-    "netlify-lambda": "^0.4.0",
     "cross-env": "^5.2.0",
-    "vue-moment": "^4.0.0",
+    "netlify-lambda": "^0.4.0",
     "nuxt": "^2.0.0",
-    "vuetify": "^1.2.4",
-    "@nuxtjs/axios": "^5.0.0"
+    "vue-moment": "^4.0.0",
+    "vuetify": "^1.2.4"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "babel-eslint": "^8.2.1",
     "eslint": "^5.0.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-vue": "^4.0.0",
     "eslint-config-prettier": "^3.1.0",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-prettier": "2.6.2",
-    "prettier": "1.14.3",
+    "eslint-plugin-vue": "^4.0.0",
     "glob": "^7.1.2",
+    "nodemon": "^1.11.0",
+    "prettier": "1.14.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   }
