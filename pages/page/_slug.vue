@@ -1,12 +1,21 @@
 <template>
   <main>
-    <div class="full-height single xs-border-left xs-border-right" :style="`min-height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`">
+    <div 
+      :style="`min-height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`" 
+      class="full-height single xs-border-left xs-border-right">
       <div class="xs-mt2 xs-p2 bcg-item">
         <div class="item xs-block xs-full-height">
-          <div v-if="thumbnail" class="fill-gray-lighter feat-wrapper"><transition appear name="fade"><img class="featured-image" :src="thumbnail" :alt="title"></transition></div>
-          <h1 class="xs-py3 main-title">{{title}}</h1>
+          <div 
+            v-if="thumbnail" 
+            class="fill-gray-lighter feat-wrapper"><transition 
+              appear 
+              name="fade"><img 
+                :src="thumbnail" 
+                :alt="title" 
+                class="featured-image"></transition></div>
+          <h1 class="xs-py3 main-title">{{ title }}</h1>
           <div class="xs-py3 post-content text-gray">
-            <div v-html="$md.render(body)"></div>
+            <div v-html="$md.render(body)"/>
           </div>
         </div>
       </div>
@@ -17,7 +26,7 @@
 
 
 <script>
-import MdWrapper from "~/components/MdWrapper";
+// import MdWrapper from "~/components/MdWrapper";
 
 export default {
   async asyncData({ params, app, payload, route, store }) {
@@ -26,26 +35,31 @@ export default {
     await store.commit("SET_TITLE", post.title);
     return post;
   },
-     transition (to, from) {
-    if (!from) { return 'slide-left' } else {return 'slide-right'}
+  transition(to, from) {
+    if (!from) {
+      return "slide-left";
+    } else {
+      return "slide-right";
+    }
   },
   head() {
     return {
       title: this.title + " | " + this.$store.state.siteInfo.sitename
     };
   },
+  components: {
+    MdWrapper
+  },
   data() {
     return {};
   },
-  methods: {
-    onResize(event) {
-      this.navHeight();
-      console.log(this.$store.state.navheight);
-      console.log("slug resize");
+
+  computed: {
+    allBlogPosts() {
+      return this.$store.state.blogPosts;
     },
-    navHeight() {
-      var height = document.getElementById("navbar").clientHeight;
-      this.$store.commit("SET_NAVHEIGHT", height);
+    navbarheight() {
+      return this.$store.state.navheight;
     }
   },
   updated() {
@@ -71,17 +85,16 @@ export default {
     // Unregister the event listener before destroying this Vue instance
     window.removeEventListener("resize", this.onResize);
   },
-
-  computed: {
-    allBlogPosts() {
-      return this.$store.state.blogPosts;
+  methods: {
+    onResize(event) {
+      this.navHeight();
+      console.log(this.$store.state.navheight);
+      console.log("slug resize");
     },
-    navbarheight() {
-      return this.$store.state.navheight;
+    navHeight() {
+      var height = document.getElementById("navbar").clientHeight;
+      this.$store.commit("SET_NAVHEIGHT", height);
     }
-  },
-  components: {
-    MdWrapper
   }
 };
 </script>

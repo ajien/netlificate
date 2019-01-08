@@ -1,70 +1,97 @@
-var siteInfo = require('./content/setup/info.json');
-console.log(siteInfo)
-var glob = require('glob');
-var path = require('path');
+var siteInfo = require("./content/setup/info.json");
+console.log(siteInfo);
+
+var glob = require("glob");
+var path = require("path");
 
 // Enhance Nuxt's generate process by gathering all content files from Netifly CMS
 // automatically and match it to the path of your Nuxt routes.
 // The Nuxt routes are generate by Nuxt automatically based on the pages folder.
 var dynamicRoutes = getDynamicPaths({
-  '/blog': 'blog/posts/*.json',
-  '/page': 'page/posts/*.json',
-  '/project': 'project/posts/*.json',
-  '/category': 'categories/posts/*.json',
-  '/tagged': 'tags/posts/*.json'
+  "/blog": "blog/posts/*.json",
+  "/page": "page/posts/*.json",
+  "/project": "project/posts/*.json",
+  "/category": "categories/posts/*.json",
+  "/projecttypes": "types/posts/*.json",
+  "/tagged": "tags/posts/*.json"
 });
-
 
 module.exports = {
   mode: "universal",
   /*
-  ** Headers of the page
-  */
-transition: { mode: "in-out"},
+   ** Headers of the page
+   */
+  transition: {
+    mode: "in-out"
+  },
   head: {
     title: siteInfo.sitename,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: siteInfo.sitedescription }
-
+      {
+        charset: "utf-8"
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      },
+      {
+        hid: "description",
+        name: "description",
+        content: siteInfo.sitedescription
+      }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Archivo+Black' }
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico"
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+      }
     ]
   },
-  css: ["~/assets/grid.css","bf-solid/dist/solid.2.10.6.css"],
+  css: ["~/assets/style/app.styl"],
+  plugins: [
+    "~/plugins/vuetify",
+    "~/plugins/vuefuse",
+    {
+      src: "~/plugins/moment",
+      ssr: false
+    }
+  ],
+  // css: ["~/assets/grid.css","bf-solid/dist/solid.2.10.6.css"],
   // icon: {
   //   iconSrc: `${siteInfo.siteicon}`
   //  },
   /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#3B8070' },
-  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa','@nuxtjs/axios'],
+   ** Customize the progress bar color
+   */
+  loading: {
+    color: "#3B8070"
+  },
+  modules: ["@nuxtjs/markdownit", "@nuxtjs/pwa", "@nuxtjs/axios"],
   markdownit: {
     injected: true,
-    preset: 'default',
+    preset: "default",
     breaks: true,
     html: true
-
-    
   },
   manifest: {
     name: siteInfo.sitename,
     short_name: siteInfo.sitename,
     description: siteInfo.sitedescription,
-    lang: 'en'
+    lang: "en"
   },
   workbox: {
     fetch: true,
     runtimeCaching: [
       {
-        urlPattern: '/images/uploads/.*',
-        handler: 'cacheFirst',
+        urlPattern: "/images/uploads/.*",
+        handler: "cacheFirst",
         strategyOptions: {
-          cacheName: 'image-cache',
+          cacheName: "image-cache",
           cacheExpiration: {
             maxEntries: 100,
             maxAgeSeconds: 86400
@@ -75,32 +102,43 @@ transition: { mode: "in-out"},
   },
 
   /*
-  ** Route config for pre-rendering
-  */
- router: {
-  scrollBehavior: function (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+   ** Route config for pre-rendering
+   */
+  router: {
+    scrollBehavior: function(to, from, savedPosition) {
+      return {
+        x: 0,
+        y: 0
+      };
+    },
+    middleware: ["title"]
   },
-middleware: ['title']
- },
   generate: {
     routes: dynamicRoutes
   },
-  plugins: ['~/plugins/vuefuse',{
-    src: "~/plugins/moment",
-    ssr: false
-  }],
-  /*
-  ** Build configuration
-  */
-  build: {
-    extractCSS: true
-    /*
-    ** Run ESLint on save
-    */
 
+  /*
+   ** Build configuration
+   */
+  build: {
+    vendor: ["vuetify"],
+    // extractCSS: true
+    /*
+     ** Run ESLint on save
+     */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/
+        });
+      }
+    }
   }
-}
+};
 
 /**
  * Create an array of URLs from a list of files
@@ -111,8 +149,10 @@ function getDynamicPaths(urlFilepathTable) {
     ...Object.keys(urlFilepathTable).map(url => {
       var filepathGlob = urlFilepathTable[url];
       return glob
-        .sync(filepathGlob, { cwd: 'content' })
-        .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
+        .sync(filepathGlob, {
+          cwd: "content"
+        })
+        .map(filepath => `${url}/${path.basename(filepath, ".json")}`);
     })
   );
 }

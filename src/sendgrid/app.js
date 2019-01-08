@@ -4,7 +4,8 @@ function addSendgridRecipient(client, email) {
   return new Promise((fulfill, reject) => {
     const data = [
       {
-        email: email      }
+        email: email
+      }
     ];
     const request = {
       method: "POST",
@@ -85,8 +86,13 @@ exports.handler = function(event, context, callback) {
           SENDGRID_WELCOME_SENDER_NAME,
           SENDGRID_WELCOME_TEMPLATE_ID
         )
-				.then(response => callback(null, { statusCode: response.statusCode, body: email + " added" }) )
-				.catch(err => callback(err, null));
+          .then(response =>
+            callback(null, {
+              statusCode: response.statusCode,
+              body: email + " added"
+            })
+          )
+          .catch(err => callback(err, null));
       } else {
         callback(null, { statusCode: response.statusCode, body: "" });
       }
