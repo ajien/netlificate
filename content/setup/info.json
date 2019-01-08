@@ -3,7 +3,7 @@
   "sitedescription": "WP Ranger",
   "siteicon": "/images/uploads/logo-menu.png",
   "showmenu": true,
-  "emailsignup": true,
+  "emailsignup": false,
   "menu": [
     {
       "name": "Nuxt.js",
