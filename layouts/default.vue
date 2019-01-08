@@ -7,19 +7,19 @@
       fixed
       app
     >
-      <v-list>
+      <v-list v-if="myPages">
         <v-list-tile
-          v-for="(item, i) in items"
-          :to="item.to"
-          :key="i"
+          v-for="(pg,i) in myPages" 
+          :key="`pg-${i}`"
+          :to="pg._path"
           router
           exact
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon" />
+            <v-icon v-html="pg.icon" />
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title" />
+            <v-list-tile-title v-text="pg.title" />
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -91,17 +91,30 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
       items: [
         { icon: "apps", title: "Welcome", to: "/" },
-        { icon: "bubble_chart", title: "Inspire", to: "/inspire" }
+        { icon: "bubble_chart", title: "Inspire", to: "/inspire" },
+        { icon: "bubble_chart", title: "Test", to: "/category" }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Vuetify.js"
+      title: this.$store.state.siteInfo.sitename
     };
+  },
+  computed: {
+    menuLinks() {
+      return this.$store.state.siteInfo.menu;
+    },
+    myPages() {
+      return this.$store.state.allPages;
+    },
+
+    menuSiteName() {
+      return this.$store.state.siteInfo.sitename;
+    }
   }
 };
 </script>

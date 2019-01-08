@@ -60,7 +60,9 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Menu Icon", name: "icon", widget: "material-icons", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "List", name: "list", widget: "list"}
   - label: "Setup"
     name: "setup"
     files:

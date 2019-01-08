@@ -1,18 +1,16 @@
 <template>
   <main>
-    <div 
-      :style="`min-height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`" 
-      class="full-height single xs-border-left xs-border-right">
+    <div
+      :style="`min-height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`"
+      class="full-height single xs-border-left xs-border-right"
+    >
       <div class="xs-mt2 xs-p2 bcg-item">
         <div class="item xs-block xs-full-height">
-          <div 
-            v-if="thumbnail" 
-            class="fill-gray-lighter feat-wrapper"><transition 
-              appear 
-              name="fade"><img 
-                :src="thumbnail" 
-                :alt="title" 
-                class="featured-image"></transition></div>
+          <!-- <div v-if="thumbnail" class="fill-gray-lighter feat-wrapper">
+            <transition appear name="fade">
+              <img :src="thumbnail" :alt="title" class="featured-image">
+            </transition>
+          </div> -->
           <h1 class="xs-py3 main-title">{{ title }}</h1>
           <div class="xs-py3 post-content text-gray">
             <div v-html="$md.render(body)"/>
@@ -22,6 +20,7 @@
     </div>
   </main>
 </template>
+
 
 
 
@@ -48,7 +47,7 @@ export default {
     };
   },
   components: {
-    MdWrapper
+    // MdWrapper
   },
   data() {
     return {};
@@ -64,37 +63,37 @@ export default {
   },
   updated() {
     if (process.browser) {
-      this.$nextTick(() => {
-        this.navHeight();
-        console.log(this.$store.state.navheight);
-        console.log("slug updated");
-      });
+      // this.$nextTick(() => {
+      //   this.navHeight();
+      //   console.log(this.$store.state.navheight);
+      //   console.log("slug updated");
+      // });
     }
   },
   mounted() {
     if (process.browser) {
-      this.$nextTick(() => {
-        this.navHeight();
-        window.addEventListener("resize", this.onResize);
-        console.log(this.$store.state.navheight);
-        console.log("slug mounted");
-      });
+      // this.$nextTick(() => {
+      //   this.navHeight();
+      //   window.addEventListener("resize", this.onResize);
+      //   console.log(this.$store.state.navheight);
+      //   console.log("slug mounted");
+      // });
     }
   },
   beforeDestroy() {
     // Unregister the event listener before destroying this Vue instance
-    window.removeEventListener("resize", this.onResize);
+    // window.removeEventListener("resize", this.onResize);
   },
   methods: {
-    onResize(event) {
-      this.navHeight();
-      console.log(this.$store.state.navheight);
-      console.log("slug resize");
-    },
-    navHeight() {
-      var height = document.getElementById("navbar").clientHeight;
-      this.$store.commit("SET_NAVHEIGHT", height);
-    }
+    // onResize(event) {
+    //   this.navHeight();
+    //   console.log(this.$store.state.navheight);
+    //   console.log("slug resize");
+    // },
+    // navHeight() {
+    //   var height = document.getElementById("navbar").clientHeight;
+    //   this.$store.commit("SET_NAVHEIGHT", height);
+    // }
   }
 };
 </script>
