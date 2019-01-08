@@ -4,8 +4,6 @@
   functions = "./functions"
 [build.environment]
   NODE_VERSION = "11"
-  YARN_VERSION = "1.3"
-  YARN_FLAGS = "--no-ignore-optional"
 [template.environment]
   SENDGRID_API_KEY = "Your Sendgrid API Key (required for newsletter signup box)"
   SENDGRID_WELCOME_SENDER_EMAIL = "Sendgrid Welcome Sender Email"
