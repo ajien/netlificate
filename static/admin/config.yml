@@ -19,6 +19,15 @@ collections:
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "blogcategories", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+  - label: 'Categories'
+    name: 'blogcategories'
+    folder: "content/categories/posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    format: 'json'
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Description, name: description, widget: string, required: false}
   - name: "project" # Used in routes, e.g., /admin/collections/project
     label: "Projects" # Used in the UI
     folder: "content/project/posts" # The path to the folder where the documents are stored
@@ -32,6 +41,15 @@ collections:
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "projecttypes", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+  - label: 'Project Types'
+    name: 'projecttypes'
+    folder: "content/types/projects" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    format: 'json'
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Description, name: description, widget: string, required: false}
   - name: "page" # Used in routes, e.g., /admin/collections/blog
     label: "Pages" # Used in the UI
     folder: "content/page/posts" # The path to the folder where the documents are stored
@@ -74,22 +92,6 @@ collections:
           fields:
             - {label: Link Name, name: name, widget: string}
             - {label: URL, name: url, widget: string}
-  - label: 'Categories'
-    name: 'blogcategories'
-    folder: "content/categories/posts" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    format: 'json'
-    fields:
-      - {label: Title, name: title, widget: string}
-      - {label: Description, name: description, widget: string, required: false}
-  - label: 'Project Types'
-    name: 'projecttypes'
-    folder: "content/types/projects" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    format: 'json'
-    fields:
-      - {label: Title, name: title, widget: string}
-      - {label: Description, name: description, widget: string, required: false}
- 
+
+
+
