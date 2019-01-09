@@ -1,11 +1,12 @@
 {
   "title": "About",
   "date": "2019-01-08T16:45:20+08:00",
+  "featured_image": "/images/uploads/5414.jpg",
   "body": "Coming soon",
-  "list": [
+  "portfolio": [
     {
-      "title": "Section",
-      "content": "test"
+      "title": "Strategic America",
+      "thumbnail": "/images/uploads/strategic-america.png"
     }
   ]
 }
